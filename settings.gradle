@@ -1,0 +1,5 @@
+include ':domain'
+include ':commen'
+include ':data'
+include ':presentation'
+rootProject.name = "NewAppCleanArch"
