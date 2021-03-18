@@ -1,11 +1,11 @@
 package com.example.domain.repository
 
-import androidx.lifecycle.LiveData
 import androidx.paging.PagingData
 import com.example.domain.entity.Article
+import kotlinx.coroutines.flow.Flow
 
 interface SearchNewsRepository {
 
-    suspend fun searchNews(query: String): LiveData<PagingData<Article>>
+    suspend fun searchNews(query: String): Flow<PagingData<Article>>
 
 }

@@ -21,7 +21,7 @@ class RemoteDataSource @Inject constructor(
                 enablePlaceholders = false
             ),
             pagingSourceFactory = { SearchNewsPagingSource(newsApi ,query) }
-        ).liveData
+        ).flow
 
     fun getArticles(countryCode: String) =
         Pager(
@@ -31,6 +31,6 @@ class RemoteDataSource @Inject constructor(
                 enablePlaceholders = false
             ),
             pagingSourceFactory = { BreakingNewsPagingSource(newsApi ,countryCode) }
-        ).liveData
+        ).flow
 
 }

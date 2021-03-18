@@ -7,7 +7,7 @@
 
     <keep_state_fragment
         android:id="@+id/breakingNewsFragment"
-        android:name="com.example.newsappcleanarch.ui.break.BreakingNewsFragment"
+        android:name="com.example.newsappcleanarch.ui.breaking.BreakingNewsFragment"
         android:label="BreakingNewsFragment"
         tools:layout="@layout/fragment_breaking_news">
         <action

@@ -3,6 +3,8 @@ package com.example.newsappcleanarch.base
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -19,6 +21,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.viewbinding.ViewBinding
 import com.example.commen.ApiWrapper
 import com.example.newsappcleanarch.R
+import java.util.*
 
 abstract class BaseFragment<VB: ViewBinding>: Fragment() {
 
@@ -27,6 +30,7 @@ abstract class BaseFragment<VB: ViewBinding>: Fragment() {
     protected val binding get() = _binding
     private lateinit var loading: FrameLayout
     private var callback: OnBackPressedCallback? = null
+    private var timer: Timer? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -80,7 +84,7 @@ abstract class BaseFragment<VB: ViewBinding>: Fragment() {
     }
 
     @SuppressLint("ResourceAsColor")
-    fun toasty(title: String, selectedMode: Int? = null) {
+    protected fun toasty(title: String, selectedMode: Int? = null) {
         val layout = layoutInflater.inflate(
             R.layout.toast_layout,
             requireView().findViewById(R.id.toast_root)

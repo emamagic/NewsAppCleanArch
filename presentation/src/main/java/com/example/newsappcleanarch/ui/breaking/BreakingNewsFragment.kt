@@ -1,58 +1,45 @@
-package com.example.newsappcleanarch.ui.search
+package com.example.newsappcleanarch.ui.breaking
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.example.domain.entity.Article
 import com.example.newsappcleanarch.base.BaseFragment
-import com.example.newsappcleanarch.databinding.FragmentSearchNewsBinding
+import com.example.newsappcleanarch.databinding.FragmentBreakingNewsBinding
 import com.example.newsappcleanarch.ui.NewsAdapter
 import com.example.newsappcleanarch.util.PagingLoadStateAdapter
-import com.example.newsappcleanarch.util.onTextChange
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.*
 
 @AndroidEntryPoint
-class SearchNewsFragment: BaseFragment<FragmentSearchNewsBinding>() ,NewsAdapter.OnBreakingListener{
+class BreakingNewsFragment: BaseFragment<FragmentBreakingNewsBinding>() ,NewsAdapter.OnBreakingListener{
 
-    private val viewModel: SearchNewsViewModel by viewModels()
+    private val viewModel: BreakingNewsViewModel by viewModels()
     private lateinit var adapter: NewsAdapter
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ) = FragmentSearchNewsBinding.inflate(inflater ,container ,false)
+    ) = FragmentBreakingNewsBinding.inflate(inflater ,container ,false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         adapter = NewsAdapter(this)
-        subscribeOnNewsList()
+        subscribeOnBreakingNews()
         binding?.apply {
-            rvSearchNews.setHasFixedSize(true)
-            rvSearchNews.adapter = adapter.withLoadStateHeaderAndFooter(
+            rvBreakingNews.setHasFixedSize(true)
+            rvBreakingNews.adapter = adapter.withLoadStateHeaderAndFooter(
                 header = PagingLoadStateAdapter { adapter.retry() },
                 footer = PagingLoadStateAdapter { adapter.retry() }
             )
-            etSearch.onTextChange {
-                Timer().schedule(object : TimerTask(){
-                    override fun run() {
-                        Handler(Looper.getMainLooper()).post {
-                            viewModel.searchQuery(it)
-                        }
-                    }
-                },2000)
-            }
         }
 
     }
 
-    private fun subscribeOnNewsList(){
-        viewModel.searchNews.observe(viewLifecycleOwner){
+    private fun subscribeOnBreakingNews(){
+        viewModel.breakingNewsList.observe(viewLifecycleOwner){
             adapter.submitData(viewLifecycleOwner.lifecycle ,it)
         }
     }
@@ -60,5 +47,6 @@ class SearchNewsFragment: BaseFragment<FragmentSearchNewsBinding>() ,NewsAdapter
     override fun onBreakingItemClick(position: Int, item: Article) {
 
     }
+
 
 }
