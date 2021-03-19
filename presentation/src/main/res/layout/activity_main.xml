@@ -9,12 +9,13 @@
 
     <!-- For using save_state_bottom_sheet you should use fragment instead of FragmentViewContainer -->
     <fragment
-        android:id="@+id/news_nav_host_fragment"
+        android:id="@+id/nav_host_fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/news_bottom_nav"
-        app:defaultNavHost="true"/>
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/news_nav_graph"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/news_bottom_nav"

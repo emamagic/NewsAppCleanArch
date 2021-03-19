@@ -25,7 +25,7 @@ class NewsAdapter(private val interaction: OnBreakingListener? = null) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BreakingNewsViewHolder {
         val binding =
             ItemArticlePreviewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return BreakingNewsViewHolder(binding ,interaction)
+        return BreakingNewsViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: BreakingNewsViewHolder, position: Int) {
@@ -33,16 +33,22 @@ class NewsAdapter(private val interaction: OnBreakingListener? = null) :
         if (currentItem != null) holder.bind(currentItem)
     }
 
-    class BreakingNewsViewHolder
+    inner class BreakingNewsViewHolder
     constructor(
-        private val binding: ItemArticlePreviewBinding,
-        private val interaction: NewsAdapter.OnBreakingListener?
+        private val binding: ItemArticlePreviewBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: Article) = binding.apply {
-            root.setOnClickListener {
-                interaction?.onBreakingItemClick(adapterPosition, item)
+        init {
+            binding.root.setOnClickListener {
+                val position = bindingAdapterPosition
+                if (position != RecyclerView.NO_POSITION){
+                    val item = getItem(position)
+                    if (item != null) interaction?.onBreakingItemClick(item)
+                }
             }
+        }
+
+        fun bind(item: Article) = binding.apply {
             Glide.with(root).load(item.urlToImage).into(ivArticleImage)
             tvSource.text = item.source.name
             tvTitle.text = item.title
@@ -59,7 +65,7 @@ class NewsAdapter(private val interaction: OnBreakingListener? = null) :
 
 
     interface OnBreakingListener {
-        fun onBreakingItemClick(position: Int, item: Article)
+        fun onBreakingItemClick(item: Article)
     }
 
 

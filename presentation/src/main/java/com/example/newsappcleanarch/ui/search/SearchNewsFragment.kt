@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.RecyclerView
 import com.example.domain.entity.Article
 import com.example.newsappcleanarch.base.BaseFragment
 import com.example.newsappcleanarch.databinding.FragmentSearchNewsBinding
@@ -57,7 +58,7 @@ class SearchNewsFragment: BaseFragment<FragmentSearchNewsBinding>() ,NewsAdapter
         }
     }
 
-    override fun onBreakingItemClick(position: Int, item: Article) {
+    override fun onBreakingItemClick(item: Article) {
 
     }
 

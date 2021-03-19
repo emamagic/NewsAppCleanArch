@@ -1,11 +1,14 @@
 package com.example.newsappcleanarch.ui.breaking
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.domain.entity.Article
+import com.example.newsappcleanarch.R
 import com.example.newsappcleanarch.base.BaseFragment
 import com.example.newsappcleanarch.databinding.FragmentBreakingNewsBinding
 import com.example.newsappcleanarch.ui.NewsAdapter
@@ -44,8 +47,9 @@ class BreakingNewsFragment: BaseFragment<FragmentBreakingNewsBinding>() ,NewsAda
         }
     }
 
-    override fun onBreakingItemClick(position: Int, item: Article) {
-
+    override fun onBreakingItemClick(item: Article) {
+        val action = BreakingNewsFragmentDirections.actionBreakingNewsFragmentToArticleNewsFragment(item)
+        findNavController().navigate(action)
     }
 
 

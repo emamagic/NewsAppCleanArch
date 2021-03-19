@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'dagger.hilt.android.plugin'
     id 'kotlin-kapt'
+    id "androidx.navigation.safeargs.kotlin"
 }
 apply from: '../dependencies.gradle'
 android {
@@ -66,7 +67,6 @@ dependencies {
     //----------------- navigationComponent -----------------
     implementation navigationComponent.navFragmentKtx
     implementation navigationComponent.navUiKtx
-    implementation navigationComponent.navFeatures
 
     //----------------- paging -----------------
     implementation paging.paging
@@ -84,4 +84,6 @@ dependencies {
     implementation utils.glide
     kapt utils.annotation_glide
     debugImplementation utils.leakcanary
-}
+
+
+ }
