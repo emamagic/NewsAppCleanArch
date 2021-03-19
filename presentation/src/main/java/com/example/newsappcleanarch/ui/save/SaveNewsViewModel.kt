@@ -6,9 +6,11 @@ import com.example.domain.entity.Article
 import com.example.domain.interactor.AllNewsUseCase
 import com.example.domain.interactor.DeleteNewsUseCase
 import com.example.domain.interactor.UpsertNewsUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class SaveNewsViewModel @Inject constructor(
     private val allNewsUseCase: AllNewsUseCase,
     private val deleteNewsUseCase: DeleteNewsUseCase,

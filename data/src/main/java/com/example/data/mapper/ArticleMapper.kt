@@ -15,7 +15,8 @@ class ArticleMapper @Inject constructor(): EntityMapper<Article ,ArticleEntity> 
             source = entity.source,
             title = entity.title,
             url = entity.url,
-            urlToImage = entity.urlToImage
+            urlToImage = entity.urlToImage,
+            id = entity.id
         )
     }
 
@@ -28,7 +29,8 @@ class ArticleMapper @Inject constructor(): EntityMapper<Article ,ArticleEntity> 
             source = domainModel.source,
             title = domainModel.title,
             url = domainModel.url,
-            urlToImage = domainModel.urlToImage
+            urlToImage = domainModel.urlToImage,
+            id = domainModel.id
         )
     }
 

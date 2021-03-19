@@ -30,19 +30,19 @@ class ArticleNewsFragment: BaseFragment<FragmentArticleBinding>() {
         binding?.apply {
 
             webView.apply {
-                webViewClient = WebViewClient()
                 loadUrl(args.article.url)
             }
 
             fab.setOnClickListener {
                 viewModel.upsertArticle(args.article)
             }
-
-
         }
-
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding?.webView?.destroy()
+    }
 
 
 }

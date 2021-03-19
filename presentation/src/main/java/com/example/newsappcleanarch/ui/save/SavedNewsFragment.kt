@@ -1,6 +1,7 @@
 package com.example.newsappcleanarch.ui.save
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,6 +31,7 @@ class SavedNewsFragment: BaseFragment<FragmentSavedNewsBinding>() ,SavedNewsAdap
         super.onViewCreated(view, savedInstanceState)
 
         adapter = SavedNewsAdapter(this)
+        binding?.rvSavedNews?.adapter = adapter
         subscribeOnSavedNews()
 
         val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(

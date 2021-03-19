@@ -76,6 +76,12 @@ dependencies {
     implementation coroutines.coroutinesCore
     implementation coroutines.coroutiensLifeCycleViewModel
 
+    //----------------- room -----------------
+    implementation room.room
+    kapt room.roomKapt
+    implementation room.roomCoroutines
+
+
     //----------------- utils -----------------
     implementation utils.sdp
     implementation utils.timber

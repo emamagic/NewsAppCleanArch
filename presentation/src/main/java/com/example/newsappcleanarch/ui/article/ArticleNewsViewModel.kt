@@ -14,7 +14,8 @@ class ArticleNewsViewModel @Inject constructor(
 ): ViewModel() {
 
     fun upsertArticle(article: Article) = viewModelScope.launch {
-        useCase.execute(article)
+       useCase.execute(article)
     }
+
 
 }

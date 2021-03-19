@@ -46,6 +46,7 @@ class SavedNewsAdapter(private val interaction: Interaction? = null) :
 
     fun submitList(list: List<Article>) {
         differ.submitList(list)
+        notifyDataSetChanged()
     }
 
     class SavedNewsViewHolder
