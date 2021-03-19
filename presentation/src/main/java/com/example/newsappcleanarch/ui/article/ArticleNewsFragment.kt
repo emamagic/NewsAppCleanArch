@@ -30,6 +30,7 @@ class ArticleNewsFragment: BaseFragment<FragmentArticleBinding>() {
         binding?.apply {
 
             webView.apply {
+                webViewClient = WebViewClient()
                 loadUrl(args.article.url)
             }
 
@@ -39,10 +40,7 @@ class ArticleNewsFragment: BaseFragment<FragmentArticleBinding>() {
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        binding?.webView?.destroy()
-    }
+
 
 
 }
