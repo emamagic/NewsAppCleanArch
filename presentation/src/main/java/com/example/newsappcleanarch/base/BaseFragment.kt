@@ -19,6 +19,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.viewbinding.ViewBinding
 import com.example.commen.ApiWrapper
 import com.example.newsappcleanarch.R
+import com.example.newsappcleanarch.util.ConnectionLiveData
 import java.util.*
 
 abstract class BaseFragment<VB: ViewBinding>: Fragment() {
@@ -28,7 +29,7 @@ abstract class BaseFragment<VB: ViewBinding>: Fragment() {
     protected val binding get() = _binding
     private lateinit var loading: FrameLayout
     private var callback: OnBackPressedCallback? = null
-    private var timer: Timer? = null
+    lateinit var connectionLiveData: ConnectionLiveData
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -78,6 +79,13 @@ abstract class BaseFragment<VB: ViewBinding>: Fragment() {
                 if (response.isDim) showLoading(true)
                 else showLoading()
             }
+        }
+    }
+
+    protected inline fun subscribeOnNetwork(crossinline call: (Boolean) -> Unit){
+        connectionLiveData = ConnectionLiveData(requireContext())
+        connectionLiveData.observe(viewLifecycleOwner){ isNetworkAvailable ->
+            call(isNetworkAvailable)
         }
     }
 

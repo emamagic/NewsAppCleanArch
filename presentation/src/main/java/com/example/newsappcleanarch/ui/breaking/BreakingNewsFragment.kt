@@ -27,6 +27,10 @@ class BreakingNewsFragment: BaseFragment<FragmentBreakingNewsBinding>() ,NewsAda
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+ /*       subscribeOnNetwork {
+            toasty("$it")
+        }*/
+
         adapter = NewsAdapterPaging(this)
         subscribeOnBreakingNews()
         binding?.apply {
@@ -38,6 +42,8 @@ class BreakingNewsFragment: BaseFragment<FragmentBreakingNewsBinding>() ,NewsAda
         }
 
     }
+
+
 
     private fun subscribeOnBreakingNews(){
         viewModel.breakingNewsList.observe(viewLifecycleOwner){
