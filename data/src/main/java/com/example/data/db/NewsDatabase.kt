@@ -4,10 +4,10 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.data.db.converter.SourceConverter
-import com.example.domain.entity.Article
+import com.example.data.db.model.ArticleEntity
 
 @Database(
-    entities = [Article::class],
+    entities = [ArticleEntity::class],
     version = 1
 )
 @TypeConverters(SourceConverter::class)

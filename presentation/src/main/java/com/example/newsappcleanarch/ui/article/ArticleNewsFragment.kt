@@ -6,13 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebViewClient
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.example.newsappcleanarch.base.BaseFragment
 import com.example.newsappcleanarch.databinding.FragmentArticleBinding
+import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
+@AndroidEntryPoint
 class ArticleNewsFragment: BaseFragment<FragmentArticleBinding>() {
 
+    private val viewModel: ArticleNewsViewModel by viewModels()
     private val args: ArticleNewsFragmentArgs by navArgs()
 
     override fun getFragmentBinding(
@@ -29,6 +33,11 @@ class ArticleNewsFragment: BaseFragment<FragmentArticleBinding>() {
                 webViewClient = WebViewClient()
                 loadUrl(args.article.url)
             }
+
+            fab.setOnClickListener {
+                viewModel.upsertArticle(args.article)
+            }
+
 
         }
 

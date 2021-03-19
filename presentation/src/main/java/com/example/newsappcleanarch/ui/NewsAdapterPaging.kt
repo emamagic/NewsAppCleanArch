@@ -9,8 +9,8 @@ import com.bumptech.glide.Glide
 import com.example.domain.entity.Article
 import com.example.newsappcleanarch.databinding.ItemArticlePreviewBinding
 
-class NewsAdapter(private val interaction: OnBreakingListener? = null) :
-    PagingDataAdapter<Article, NewsAdapter.BreakingNewsViewHolder>(DIFF_CALLBACK) {
+class NewsAdapterPaging(private val interaction: OnBreakingListener? = null) :
+    PagingDataAdapter<Article, NewsAdapterPaging.BreakingNewsViewHolder>(DIFF_CALLBACK) {
 
     companion object {
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Article>() {

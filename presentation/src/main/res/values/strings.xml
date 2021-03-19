@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">NewAppCleanArch</string>
+    <string name="toasty_error">مشکلی رخ داده لطفا مجددا تلاش نمایید</string>
+    <string name="toasty_net">لطفا از وضعیت اینترنت خود مطمعن شوید</string>
 </resources>

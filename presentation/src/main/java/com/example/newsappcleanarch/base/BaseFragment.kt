@@ -62,7 +62,7 @@ abstract class BaseFragment<VB: ViewBinding>: Fragment() {
         when(response){
             is ApiWrapper.Success -> { call(response.data) }
             is ApiWrapper.ApiError -> {
-                Log.e("TAG", "onViewCreated: ${response.error}", )
+                Log.e("TAG", "onViewCreated: ${response.message}", )
                 toastError()
             }
             is ApiWrapper.UnknownError -> {
@@ -89,30 +89,26 @@ abstract class BaseFragment<VB: ViewBinding>: Fragment() {
         )
         when (selectedMode) {
 
-            1 -> {
-                //correct
+            MODE_TOAST_SUCCESS -> {
                 layout.findViewById<ImageView>(R.id.toast_img)
                     .setImageResource(R.drawable.ic_corroct_toast)
                 layout.findViewById<ConstraintLayout>(R.id.toast_root)
                     .setBackgroundResource(R.drawable.bg_corroct_toast)
             }
-            2 -> {
-                //Warning
+            MODE_TOAST_WARNING -> {
                 layout.findViewById<ImageView>(R.id.toast_img)
                     .setImageResource(R.drawable.ic_warning_toast)
                 layout.findViewById<ConstraintLayout>(R.id.toast_root)
                     .setBackgroundResource(R.drawable.bg_warning_toast)
                 layout.findViewById<TextView>(R.id.toast_txt).setTextColor(R.color.black)
             }
-            3 -> {
-                //Error
+            MODE_TOAST_ERROR -> {
                 layout.findViewById<ImageView>(R.id.toast_img)
                     .setImageResource(R.drawable.ic_error_toast)
                 layout.findViewById<ConstraintLayout>(R.id.toast_root)
                     .setBackgroundResource(R.drawable.bg_error_toast)
             }
             else -> {
-                //AnyNumber
                 Toast.makeText(requireContext(), title, Toast.LENGTH_LONG).show()
             }
 
@@ -128,12 +124,12 @@ abstract class BaseFragment<VB: ViewBinding>: Fragment() {
         }
     }
 
-    protected fun toastNet(text: String = "لطفا از وضعیت اینترنت خود مطمعن شوید") {
-        toasty(text ,2)
+    protected fun toastNet(text: String = getString(R.string.toasty_net)) {
+        toasty(text , MODE_TOAST_WARNING)
     }
 
-    protected fun toastError(text: String = "مشکلی رخ داده لطفا مجددا تلاش نمایید") {
-        toasty(text ,3)
+    protected fun toastError(text: String = getString(R.string.toasty_error)) {
+        toasty(text , MODE_TOAST_ERROR)
     }
 
     abstract fun getFragmentBinding(inflater: LayoutInflater ,container: ViewGroup?): VB
@@ -158,6 +154,11 @@ abstract class BaseFragment<VB: ViewBinding>: Fragment() {
         }
     }
 
+    companion object {
+        const val MODE_TOAST_SUCCESS = 1
+        const val MODE_TOAST_WARNING = 2
+        const val MODE_TOAST_ERROR = 3
+    }
 
 }
 

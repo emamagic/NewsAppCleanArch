@@ -17,8 +17,8 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object RoomModule {
 
-    @Provides
     @Singleton
+    @Provides
     fun provideRoomDatabase(@ApplicationContext context: Context): NewsDatabase{
         return Room.databaseBuilder(context ,NewsDatabase::class.java ,DATABASE_NAME)
             .fallbackToDestructiveMigration()
@@ -29,4 +29,5 @@ object RoomModule {
     fun provideNewsDao(newsDatabase: NewsDatabase): NewsDao{
         return newsDatabase.getNewsDao()
     }
+
 }

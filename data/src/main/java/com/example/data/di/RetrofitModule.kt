@@ -40,8 +40,8 @@ object RetrofitModule {
     }
 
 
-    @Provides
     @Singleton
+    @Provides
     fun provideRetrofit(client: Lazy<OkHttpClient>): Retrofit{
         return Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())

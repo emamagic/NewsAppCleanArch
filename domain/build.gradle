@@ -61,10 +61,5 @@ dependencies {
     //----------------- paging -----------------
     implementation paging.paging
 
-    //----------------- room -----------------
-    implementation room.room
-    kapt room.roomKapt
-    implementation room.roomCoroutines
-
 
 }

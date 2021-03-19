@@ -1,25 +1,23 @@
 package com.example.newsappcleanarch.ui.breaking
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.domain.entity.Article
-import com.example.newsappcleanarch.R
 import com.example.newsappcleanarch.base.BaseFragment
 import com.example.newsappcleanarch.databinding.FragmentBreakingNewsBinding
-import com.example.newsappcleanarch.ui.NewsAdapter
+import com.example.newsappcleanarch.ui.NewsAdapterPaging
 import com.example.newsappcleanarch.util.PagingLoadStateAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class BreakingNewsFragment: BaseFragment<FragmentBreakingNewsBinding>() ,NewsAdapter.OnBreakingListener{
+class BreakingNewsFragment: BaseFragment<FragmentBreakingNewsBinding>() ,NewsAdapterPaging.OnBreakingListener{
 
     private val viewModel: BreakingNewsViewModel by viewModels()
-    private lateinit var adapter: NewsAdapter
+    private lateinit var adapter: NewsAdapterPaging
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
@@ -29,7 +27,7 @@ class BreakingNewsFragment: BaseFragment<FragmentBreakingNewsBinding>() ,NewsAda
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter = NewsAdapter(this)
+        adapter = NewsAdapterPaging(this)
         subscribeOnBreakingNews()
         binding?.apply {
             rvBreakingNews.setHasFixedSize(true)

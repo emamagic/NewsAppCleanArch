@@ -7,21 +7,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.RecyclerView
+import androidx.navigation.fragment.findNavController
 import com.example.domain.entity.Article
 import com.example.newsappcleanarch.base.BaseFragment
 import com.example.newsappcleanarch.databinding.FragmentSearchNewsBinding
-import com.example.newsappcleanarch.ui.NewsAdapter
+import com.example.newsappcleanarch.ui.NewsAdapterPaging
 import com.example.newsappcleanarch.util.PagingLoadStateAdapter
 import com.example.newsappcleanarch.util.onTextChange
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
 @AndroidEntryPoint
-class SearchNewsFragment: BaseFragment<FragmentSearchNewsBinding>() ,NewsAdapter.OnBreakingListener{
+class SearchNewsFragment: BaseFragment<FragmentSearchNewsBinding>() ,NewsAdapterPaging.OnBreakingListener{
 
     private val viewModel: SearchNewsViewModel by viewModels()
-    private lateinit var adapter: NewsAdapter
+    private lateinit var adapter: NewsAdapterPaging
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
@@ -31,7 +31,7 @@ class SearchNewsFragment: BaseFragment<FragmentSearchNewsBinding>() ,NewsAdapter
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter = NewsAdapter(this)
+        adapter = NewsAdapterPaging(this)
         subscribeOnNewsList()
         binding?.apply {
             rvSearchNews.setHasFixedSize(true)
@@ -46,7 +46,7 @@ class SearchNewsFragment: BaseFragment<FragmentSearchNewsBinding>() ,NewsAdapter
                             viewModel.searchQuery(it)
                         }
                     }
-                },2000)
+                },1000)
             }
         }
 
@@ -59,7 +59,8 @@ class SearchNewsFragment: BaseFragment<FragmentSearchNewsBinding>() ,NewsAdapter
     }
 
     override fun onBreakingItemClick(item: Article) {
-
+        val action = SearchNewsFragmentDirections.actionSearchNewsFragment2ToArticleNewsFragment(item)
+        findNavController().navigate(action)
     }
 
 }
