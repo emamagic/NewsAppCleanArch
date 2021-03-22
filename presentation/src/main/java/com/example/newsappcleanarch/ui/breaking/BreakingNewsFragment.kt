@@ -11,6 +11,7 @@ import com.example.newsappcleanarch.base.BaseFragment
 import com.example.newsappcleanarch.databinding.FragmentBreakingNewsBinding
 import com.example.newsappcleanarch.ui.NewsAdapterPaging
 import com.example.newsappcleanarch.util.PagingLoadStateAdapter
+import com.example.newsappcleanarch.util.setupRefreshLayout
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

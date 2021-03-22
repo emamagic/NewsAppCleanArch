@@ -1,25 +1,20 @@
 package com.example.newsappcleanarch.base
 
-import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.viewbinding.ViewBinding
 import com.example.commen.ApiWrapper
 import com.example.newsappcleanarch.R
 import com.example.newsappcleanarch.util.ConnectionLiveData
+import com.example.newsappcleanarch.util.toasty
 import java.util.*
 
 abstract class BaseFragment<VB: ViewBinding>: Fragment() {
@@ -64,15 +59,15 @@ abstract class BaseFragment<VB: ViewBinding>: Fragment() {
             is ApiWrapper.Success -> { call(response.data) }
             is ApiWrapper.ApiError -> {
                 Log.e("TAG", "onViewCreated: ${response.message}", )
-                toastError()
+                toasty(R.string.toasty_error)
             }
             is ApiWrapper.UnknownError -> {
                 Log.e("TAG", "onViewCreated: ${response.message}", )
-                toastError()
+                toasty(R.string.toasty_error)
             }
             is ApiWrapper.NetworkError -> {
                 Log.e("TAG", "onViewCreated: net ${response.message}", )
-                toastNet()
+                toasty(R.string.toasty_net)
             }
             else -> {
                 // is ApiWrapper.Loading
@@ -87,57 +82,6 @@ abstract class BaseFragment<VB: ViewBinding>: Fragment() {
         connectionLiveData.observe(viewLifecycleOwner){ isNetworkAvailable ->
             call(isNetworkAvailable)
         }
-    }
-
-    @SuppressLint("ResourceAsColor")
-    protected fun toasty(title: String, selectedMode: Int? = null) {
-        val layout = layoutInflater.inflate(
-            R.layout.toast_layout,
-            requireView().findViewById(R.id.toast_root)
-        )
-        when (selectedMode) {
-
-            MODE_TOAST_SUCCESS -> {
-                layout.findViewById<ImageView>(R.id.toast_img)
-                    .setImageResource(R.drawable.ic_corroct_toast)
-                layout.findViewById<ConstraintLayout>(R.id.toast_root)
-                    .setBackgroundResource(R.drawable.bg_corroct_toast)
-            }
-            MODE_TOAST_WARNING -> {
-                layout.findViewById<ImageView>(R.id.toast_img)
-                    .setImageResource(R.drawable.ic_warning_toast)
-                layout.findViewById<ConstraintLayout>(R.id.toast_root)
-                    .setBackgroundResource(R.drawable.bg_warning_toast)
-                layout.findViewById<TextView>(R.id.toast_txt).setTextColor(R.color.black)
-            }
-            MODE_TOAST_ERROR -> {
-                layout.findViewById<ImageView>(R.id.toast_img)
-                    .setImageResource(R.drawable.ic_error_toast)
-                layout.findViewById<ConstraintLayout>(R.id.toast_root)
-                    .setBackgroundResource(R.drawable.bg_error_toast)
-            }
-            else -> {
-                Toast.makeText(requireContext(), title, Toast.LENGTH_LONG).show()
-            }
-
-        }
-
-        layout.findViewById<TextView>(R.id.toast_txt).text = title
-        if(selectedMode!=null){
-            Toast(requireActivity()).apply {
-                setGravity(Gravity.BOTTOM, 0, 100)
-                duration = Toast.LENGTH_LONG
-                view = layout
-            }.show()
-        }
-    }
-
-    protected fun toastNet(text: String = getString(R.string.toasty_net)) {
-        toasty(text , MODE_TOAST_WARNING)
-    }
-
-    protected fun toastError(text: String = getString(R.string.toasty_error)) {
-        toasty(text , MODE_TOAST_ERROR)
     }
 
     abstract fun getFragmentBinding(inflater: LayoutInflater ,container: ViewGroup?): VB
@@ -160,12 +104,6 @@ abstract class BaseFragment<VB: ViewBinding>: Fragment() {
             callback?.isEnabled = false
             callback?.remove()
         }
-    }
-
-    companion object {
-        const val MODE_TOAST_SUCCESS = 1
-        const val MODE_TOAST_WARNING = 2
-        const val MODE_TOAST_ERROR = 3
     }
 
 }

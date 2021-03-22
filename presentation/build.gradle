@@ -90,6 +90,6 @@ dependencies {
     implementation utils.glide
     kapt utils.annotation_glide
     debugImplementation utils.leakcanary
-
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
 
  }
